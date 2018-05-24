@@ -1,6 +1,6 @@
 {
   "name": "pmpos-core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,9 +8,13 @@
     "build": "tslint --project \".\"&&tsc",
     "lint": "tslint --project \".\""
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emreeren/pmpos-core.git"
+  },
+  "keywords": ["pmpos"],
   "author": "Emre Eren <emreeren@gmail.com> (sambapos.com)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/debug": "0.0.30",
     "@types/faker": "^4.1.2",
