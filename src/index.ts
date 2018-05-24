@@ -6,6 +6,12 @@ import CardOperation from './CardOperations/CardOperation';
 import TerminalManager from './TerminalManager';
 import ConfigManager from './ConfigManager';
 import { DataBuilder } from './DataBuilder';
+import {
+    IAction, ActionRecord, IActionState, ICard, CardRecord, ICardData,
+    CardDataRecord, ICardTag, CardTagRecord, CardTagData, ICardType, CardTypeRecord,
+    ICommit, CommitRecord, IRule, RuleRecord, ITagType, TagTypeRecord, makeDeepCard,
+    makeDeepCommit, makeDeepCardData
+} from './models';
 
 export {
     ProtocolManager,
@@ -15,5 +21,27 @@ export {
     cardOperations,
     CardOperation,
     TerminalManager,
-    DataBuilder
+    DataBuilder,
+
+    IAction,
+    ActionRecord,
+    IActionState,
+    ICard,
+    CardRecord,
+    ICardData,
+    CardDataRecord,
+    ICardTag,
+    CardTagRecord,
+    CardTagData,
+    ICardType,
+    CardTypeRecord,
+    ICommit,
+    CommitRecord,
+    IRule,
+    RuleRecord,
+    ITagType,
+    TagTypeRecord,
+    makeDeepCard,
+    makeDeepCommit,
+    makeDeepCardData
 };

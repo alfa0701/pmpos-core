@@ -32,4 +32,4 @@ export {
     makeDeepCard,
     makeDeepCommit,
     makeDeepCardData
-}
+};

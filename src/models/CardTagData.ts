@@ -30,12 +30,12 @@ export default class {
     }
 
     public getInDisplayFor(filter: string): string {
-        let inValue = this.tag.getInQuantityFor(filter);
+        const inValue = this.tag.getInQuantityFor(filter);
         return inValue !== 0 ? String(inValue) : '';
     }
 
     public getOutDisplayFor(filter: string): string {
-        let outValue = this.tag.getOutQuantityFor(filter);
+        const outValue = this.tag.getOutQuantityFor(filter);
         return outValue !== 0 ? String(outValue) : '';
     }
 
@@ -44,12 +44,12 @@ export default class {
     }
 
     public getDebitDisplayFor(filter: string): string {
-        let debit = this.getDebitFor(filter);
+        const debit = this.getDebitFor(filter);
         return debit !== 0 ? debit.toFixed(2) : '';
     }
 
     public getCreditDisplayFor(filter: string): string {
-        let credit = this.getCreditFor(filter);
+        const credit = this.getCreditFor(filter);
         return credit !== 0 ? credit.toFixed(2) : '';
     }
 

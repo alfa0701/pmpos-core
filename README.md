@@ -1,1 +1,1 @@
-# pmpos-modules
+# pmpos-core
