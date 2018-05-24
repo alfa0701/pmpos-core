@@ -1,0 +1,102 @@
+import { Record } from 'immutable';
+import { Parser } from 'expr-eval';
+
+export interface ICardTag {
+    id: string;
+    typeId: string;
+    name: string;
+    value: string;
+    quantity: number;
+    unit: string;
+    price: number;
+    func: string;
+    source: string;
+    target: string;
+    cardId: string;
+    sourceCardId: string;
+    targetCardId: string;
+}
+
+export class CardTagRecord extends Record<ICardTag>({
+    id: '',
+    typeId: '',
+    name: '',
+    value: '',
+    quantity: 0,
+    unit: '',
+    price: 0,
+    func: '',
+    source: '',
+    target: '',
+    cardId: '',
+    sourceCardId: '',
+    targetCardId: ''
+}) {
+
+    get display(): string {
+        const key = !this.name || this.name[0] === '_' ? '' : this.name + ': ';
+        return `${key}${this.valueDisplay}`;
+    }
+
+    get valueDisplay(): string {
+        const u = this.unit ? this.unit : '';
+        const q = this.quantity !== 0 ? this.quantity + u + ' ' : '';
+        return this.value ? q + this.value : '';
+    }
+    get realQuantity(): number {
+        return this.quantity !== 0 ? this.quantity : 1;
+    }
+    public getDebit(parentDebit: number, parentCredit: number): number {
+        return this.source ? this.realQuantity * this.getRealPrice(parentDebit, parentCredit) : 0;
+    }
+    public getCredit(parentDebit: number, parentCredit: number): number {
+        return this.target ? this.realQuantity * this.getRealPrice(parentDebit, parentCredit) : 0;
+    }
+    public getBalance(parentDebit: number, parentCredit: number): number {
+        return this.getDebit(parentDebit, parentCredit) - this.getCredit(parentDebit, parentCredit);
+    }
+    public getRealPrice(parentDebit: number, parentCredit: number): number {
+        // if (this.rate !== 0) {
+        //     let price = ((parentPrice * this.rate) / 100) + this.price;
+        //     let result = Math.round(price * 100) / 100;
+        //     return result;
+        // }
+        if (this.func) {
+            return Parser.evaluate(this.func, {
+                a: this.price, d: parentDebit, c: parentCredit,
+                p: parentDebit - parentCredit
+            });
+        }
+        return this.price;
+    }
+    public getInQuantityFor(location?: string): number {
+        location = location && location.toLowerCase();
+        if (location && this.value.toLowerCase().includes(location)) {
+            return this.target ? this.quantity : 0;
+        }
+        return this.target && (!location || this.target.toLowerCase().includes(location)) ? this.quantity : 0;
+    }
+
+    public getOutQuantityFor(location?: string): number {
+        location = location && location.toLowerCase();
+        if (location && this.value.toLowerCase().includes(location)) {
+            return this.target ? 0 : this.quantity;
+        }
+        return this.source && (!location || this.source.toLowerCase().includes(location)) ? this.quantity : 0;
+    }
+
+    public getTotalQuantityFor(location: string): number {
+        return this.getInQuantityFor(location) - this.getOutQuantityFor(location);
+    }
+
+    get locationDisplay(): string {
+        return this.source || this.target ? `${this.source} > ${this.target}` : '';
+    }
+
+    public acceptsFilter(filter: string): boolean {
+        const sv = filter.toLowerCase();
+        return (this.value.toLowerCase().includes(sv) && this.name !== 'Name')
+            || this.source.toLowerCase().includes(sv)
+            || this.target.toLowerCase().includes(sv);
+    }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "pmpos-core",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tslint --project \".\"&&tsc",
+    "lint": "tslint --project \".\""
+  },
+  "keywords": [],
+  "author": "Emre Eren <emreeren@gmail.com> (sambapos.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/debug": "0.0.30",
+    "@types/faker": "^4.1.2",
+    "@types/node": "^9.6.18",
+    "@types/shortid": "0.0.29",
+    "expr-eval": "^1.2.1",
+    "immutable": "^4.0.0-rc.9",
+    "lodash": "^4.17.10",
+    "shortid": "^2.2.8",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.8.3",
+    "y-array": "^11.0.0-5",
+    "y-indexeddb": "^9.0.0-5",
+    "y-map": "^11.0.0-1",
+    "y-memory": "^9.0.0-1",
+    "yjs": "^13.0.0-61"
+  },
+  "dependencies": {
+    "faker": "^4.1.0",
+    "nools-ts": "^2.3.5",
+    "y-websockets-streaming-client": "^1.0.24"
+  },
+  "peerDependencies": {
+    "yjs": "^13.0.0-61",
+    "y-array": "^11.0.0-5",
+    "y-indexeddb": "^9.0.0-5",
+    "y-map": "^11.0.0-1",
+    "y-memory": "^9.0.0-1",
+    "immutable": "^4.0.0-rc.9",
+    "lodash": "^4.17.5",
+    "shortid": "^2.2.8"
+  }
+}
