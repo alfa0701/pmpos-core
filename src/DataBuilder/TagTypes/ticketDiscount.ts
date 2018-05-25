@@ -8,7 +8,7 @@ const data = {
     defaultValue: 'Ticket Discount',
     showQuantity: false,
     showUnit: false,
-    showPrice: true,
+    showAmount: true,
     showSource: false,
     showTarget: false,
     showFunction: false,
@@ -24,7 +24,7 @@ const data = {
 // showValue: boolean;
 // showQuantity: boolean;
 // showUnit: boolean;
-// showPrice: boolean;
+// showAmount: boolean;
 // showSource: boolean;
 // showTarget: boolean;
 // showFunction: boolean;
@@ -38,6 +38,6 @@ const data = {
 // defaultTarget: string;
 // defaultQuantity: number;
 // defaultUnit: string;
-// defaultPrice: number;
+// defaultAmount: number;
 
 export default new TagTypeRecord(data);

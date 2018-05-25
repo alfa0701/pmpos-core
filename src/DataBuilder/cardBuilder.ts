@@ -28,7 +28,7 @@ export class CardBuilder {
 
     public getProductCommits() {
         const result: any[] = [];
-        result.push(this.getProductCommit('Pizza', 'Kitchen', '12'));
+        result.push(this.getProductCommit('Pizza', 'Kitchen', '12.5'));
         result.push(this.getProductCommit('Hamburger', 'Kitchen', '11'));
         result.push(this.getProductCommit('Water', 'Bar', '1'));
         result.push(this.getProductCommit('Coke', 'Bar', '3'));
@@ -43,13 +43,13 @@ export class CardBuilder {
         return this.commitBuilder.buildCommit(locations, [{ name: 'Name', value: name }]);
     }
 
-    public getProductCommit(name: string, location: string, price: string) {
+    public getProductCommit(name: string, location: string, amount: string) {
         return this.commitBuilder.buildCommit(
             products,
             [
                 { name: 'Name', value: name },
                 { name: 'Source', value: location },
-                { name: 'Price', value: price }
+                { name: 'Price', value: amount }
             ]);
     }
 

@@ -26,7 +26,7 @@ export default class SetCardTag extends CardOperation {
         if (this.tagValueRemoved(card, data)) {
             return card.deleteIn(['tags', data.name]);
         }
-        if (this.tagPriceRemoved(card, data)) {
+        if (this.tagAmountRemoved(card, data)) {
             return card.deleteIn(['tags', data.name]);
         }
         return card.setIn(['tags', data.name], r);
@@ -39,7 +39,7 @@ export default class SetCardTag extends CardOperation {
 
     public fixData(data: any) {
         if (!Number.isNaN(Number(data.quantity))) { data.quantity = Number(data.quantity); }
-        if (!Number.isNaN(Number(data.price))) { data.price = Number(data.price); }
+        if (!Number.isNaN(Number(data.amount))) { data.amount = Number(data.amount); }
 
         if (!data.typeId && data.type) {
             const tt = ConfigManager.findTagType(x => x.name === data.type);
@@ -57,8 +57,8 @@ export default class SetCardTag extends CardOperation {
                     data.quantity = tt.defaultQuantity;
                 }
                 if (!data.unit && tt.defaultUnit) { data.unit = tt.defaultUnit; }
-                if ((!data.price || data.price === 0) && tt.defaultPrice) {
-                    data.price = tt.defaultPrice;
+                if ((!data.amount || data.amount === 0) && tt.defaultAmount) {
+                    data.amount = tt.defaultAmount;
                 }
                 if (!data.func && tt.defaultFunction) {
                     data.func = tt.defaultFunction;
@@ -75,9 +75,10 @@ export default class SetCardTag extends CardOperation {
                         if (!data.name) {
                             data.name = tt.cardTypeReferenceName;
                         }
-                        if (!data.price || data.price === 0) {
-                            const price = card.getTag('Price', 0);
-                            if (price) { data.price = price; }
+                        if (!data.amount || data.amount === 0) {
+                            let amount = card.getTag('Amount', '');
+                            if (!amount) { amount = card.getTag('Price', '') }
+                            if (amount) { data.amount = Number(amount); }
                         }
                         if (!data.source) {
                             const source = card.getTag('Source', '');
@@ -103,7 +104,7 @@ export default class SetCardTag extends CardOperation {
     public canApply(card: CardRecord, data: any): boolean {
         const currentValue = card.getIn(['tags', data.name]) as CardTagRecord;
         if (!data.name || (this.valueNeeded(data, currentValue) && !data.value)) { return false; }
-        if (this.priceNeeded(data, currentValue) && data.price === 0) { return false; }
+        if (this.amountNeeded(data, currentValue) && data.amount === 0) { return false; }
         return this.valueChanged(currentValue, data);
     }
     public processPendingAction(action: ActionRecord): ActionRecord {
@@ -145,16 +146,16 @@ export default class SetCardTag extends CardOperation {
             && !data.value;
     }
 
-    private tagPriceRemoved(card: CardRecord, data: CardTagRecord) {
-        return card.tags.has(data.name) && data.func && data.price === 0;
+    private tagAmountRemoved(card: CardRecord, data: CardTagRecord) {
+        return card.tags.has(data.name) && data.func && data.amount === 0;
     }
 
     private valueNeeded(data: any, currentValue: CardTagRecord): boolean {
         return (!currentValue || !currentValue.value) && (data.name.startsWith('_') || data.typeId);
     }
 
-    private priceNeeded(data: any, currentValue: CardTagRecord): boolean {
-        return (!currentValue || currentValue.price === 0) && data.func;
+    private amountNeeded(data: any, currentValue: CardTagRecord): boolean {
+        return (!currentValue || currentValue.amount === 0) && data.func;
     }
 
     private valueChanged(currentValue: CardTagRecord, data: any) {
@@ -174,8 +175,8 @@ export default class SetCardTag extends CardOperation {
             // console.log('unit changed');
             return true;
         }
-        if (currentValue.price !== data.price) {
-            // console.log('price changed');
+        if (currentValue.amount !== data.amount) {
+            // console.log('amount changed');
             return true;
         }
         if (currentValue.func !== data.func) {

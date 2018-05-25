@@ -8,7 +8,7 @@ export interface ICardTag {
     value: string;
     quantity: number;
     unit: string;
-    price: number;
+    amount: number;
     func: string;
     source: string;
     target: string;
@@ -24,7 +24,7 @@ export class CardTagRecord extends Record<ICardTag>({
     value: '',
     quantity: 0,
     unit: '',
-    price: 0,
+    amount: 0,
     func: '',
     source: '',
     target: '',
@@ -47,27 +47,22 @@ export class CardTagRecord extends Record<ICardTag>({
         return this.quantity !== 0 ? this.quantity : 1;
     }
     public getDebit(parentDebit: number, parentCredit: number): number {
-        return this.source ? this.realQuantity * this.getRealPrice(parentDebit, parentCredit) : 0;
+        return this.source ? this.realQuantity * this.getRealAmount(parentDebit, parentCredit) : 0;
     }
     public getCredit(parentDebit: number, parentCredit: number): number {
-        return this.target ? this.realQuantity * this.getRealPrice(parentDebit, parentCredit) : 0;
+        return this.target ? this.realQuantity * this.getRealAmount(parentDebit, parentCredit) : 0;
     }
     public getBalance(parentDebit: number, parentCredit: number): number {
         return this.getDebit(parentDebit, parentCredit) - this.getCredit(parentDebit, parentCredit);
     }
-    public getRealPrice(parentDebit: number, parentCredit: number): number {
-        // if (this.rate !== 0) {
-        //     let price = ((parentPrice * this.rate) / 100) + this.price;
-        //     let result = Math.round(price * 100) / 100;
-        //     return result;
-        // }
+    public getRealAmount(parentDebit: number, parentCredit: number): number {
         if (this.func) {
             return Parser.evaluate(this.func, {
-                a: this.price, d: parentDebit, c: parentCredit,
+                a: this.amount, d: parentDebit, c: parentCredit,
                 p: parentDebit - parentCredit
             });
         }
-        return this.price;
+        return this.amount;
     }
     public getInQuantityFor(location?: string): number {
         location = location && location.toLowerCase();

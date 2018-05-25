@@ -21,7 +21,7 @@ const data = {
                     'Credit Card',
                     'Voucher'
                   ],
-                'price': Number(s.card.balance)
+                'amount': Number(s.card.balance)
               }
             });
         }
@@ -33,13 +33,13 @@ const data = {
             s: State;
             a: Action a.type == 'ASK_QUESTION' from s.action;
             a: Action a.data.tag == 'MyPayment' from s.action;
-            s: State s.state.get('price') > 0 && s.state.get('type') !== undefined;
+            s: State s.state.get('amount') > 0 && s.state.get('type') !== undefined;
         }
         then {
             r.add('CREATE_CARD',{type:'Payment'});
             r.add('SET_CARD_TAG',{
               'value': s.state.get('type'),
-              'price': s.state.get('price'),
+              'amount': s.state.get('amount'),
               'target': 'Wallet.' + s.state.get('type')
             });
         }

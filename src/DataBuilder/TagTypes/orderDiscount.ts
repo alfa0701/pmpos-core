@@ -8,7 +8,7 @@ const data = {
     defaultValue: 'Discount',
     showQuantity: false,
     showUnit: false,
-    showPrice: true,
+    showAmount: true,
     showSource: false,
     defaultSource: 'Discount',
     showTarget: false,
@@ -16,7 +16,7 @@ const data = {
     defaultFunction: '-(p*a)/100',
     displayFormat: `<div style="display:flex;margin-right:8px">
     <div style="flex:1">
-    {%=o.value%} (%{%=o.price%})
+    {%=o.value%} (%{%=o.amount%})
     </div> 
     <div style="font-size:1.2em;color:red">
     {%=o.balance.toFixed(2)%}
@@ -31,7 +31,7 @@ const data = {
 // showValue: boolean;
 // showQuantity: boolean;
 // showUnit: boolean;
-// showPrice: boolean;
+// showAmount: boolean;
 // showSource: boolean;
 // showTarget: boolean;
 // showFunction: boolean;
@@ -45,6 +45,6 @@ const data = {
 // defaultTarget: string;
 // defaultQuantity: number;
 // defaultUnit: string;
-// defaultPrice: number;
+// defaultAmount: number;
 
 export default new TagTypeRecord(data);

@@ -7,7 +7,7 @@ const data = {
     showValue: true,
     showQuantity: false,
     showUnit: false,
-    showPrice: false,
+    showAmount: false,
     showSource: false,
     showTarget: false,
     showFunction: false,
@@ -21,7 +21,7 @@ const data = {
 // showValue: boolean;
 // showQuantity: boolean;
 // showUnit: boolean;
-// showPrice: boolean;
+// showAmount: boolean;
 // showSource: boolean;
 // showTarget: boolean;
 // showFunction: boolean;
@@ -35,6 +35,6 @@ const data = {
 // defaultTarget: string;
 // defaultQuantity: number;
 // defaultUnit: string;
-// defaultPrice: number;
+// defaultAmount: number;
 
 export default new TagTypeRecord(data);
