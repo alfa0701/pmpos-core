@@ -63,6 +63,10 @@ export class RuleManager {
         const actions: ActionRecord[] = [];
         let lastCardId = cardId;
         for (const act of acts) {
+            if (act.type === 'RESET_PARENT_CARD') {
+                lastCardId = act.data;
+                continue;
+            }
             const processedData = cardOperations.fixData(act.type, { ...act.data });
             if (!processedData.id) {
                 processedData.id = shortid.generate();

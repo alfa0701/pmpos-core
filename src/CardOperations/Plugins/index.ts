@@ -8,6 +8,7 @@ import SelectCard from './SelectCard';
 import SetCardIndex from './SetCardIndex';
 import CommitCard from './CommitCard';
 import DisplayCard from './DisplayCard';
+import SelectCards from './SelectCards';
 
 export default [
     new CreateCard(),
@@ -19,5 +20,6 @@ export default [
     new ExecuteCommand(),
     new SetState(),
     new AskQuestion(),
-    new SelectCard()
+    new SelectCard(),
+    new SelectCards()
 ];

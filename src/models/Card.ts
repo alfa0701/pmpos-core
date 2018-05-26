@@ -152,14 +152,16 @@ export class CardRecord extends Record<ICard>({
         return this.cards.valueSeq().toArray();
     }
 
-    public getSubCard(id: string): CardRecord | undefined {
-        return this.cards.find(x => x.getCard(id) !== undefined);
+    public getSubCard(name: string): CardRecord | undefined {
+        if (!name) { return undefined; }
+        if (this.name === name) { return this; }
+        return this.cards.find(card => card.getSubCard(name) !== undefined);
     }
 
     public getCard(id: string): CardRecord | undefined {
         if (!id) { return undefined; }
         if (this.id === id) { return this; }
-        return this.getSubCard(id);
+        return this.cards.find(card => card.getCard(id) !== undefined);
     }
 
     public getTags(filters: string[]): { filter: string, result: List<CardTagRecord> } {

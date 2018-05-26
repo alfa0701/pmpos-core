@@ -17,6 +17,10 @@ export class ResultType {
         this.actions.push(new ActionType(type, data));
     }
 
+    public resetParent(cardId: number) {
+        this.actions.push(new ActionType('RESET_PARENT_CARD', cardId));
+    }
+
     public concatActionsTo(r: ActionType[]) {
         return r.concat(this.actions);
     }

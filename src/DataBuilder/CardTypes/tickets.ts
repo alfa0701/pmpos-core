@@ -9,7 +9,7 @@ const data = {
     id: 'SJGEsS5cM',
     name: 'Tickets',
     reference: 'Ticket',
-    commands: ['Payment=Add Payment', 'Table=Select Table', 'Add Product:Products'],
+    commands: ['Payment=Add Payment', 'Table=Select Table', 'Add Product:Products,Category'],
     subCardTypes: [orders.id],
     tagTypes: [ticketTable.id, ticketCustomer.id, ticketStatus.id, ticketDiscount.id]
 };

@@ -39,7 +39,7 @@ export class CardTagRecord extends Record<ICardTag>({
     }
 
     get valueDisplay(): string {
-        const u = this.unit ? this.unit : '';
+        const u = this.unit ? ' ' + this.unit : '';
         const q = this.quantity !== 0 ? this.quantity + u + ' ' : '';
         return this.value ? q + this.value : '';
     }
