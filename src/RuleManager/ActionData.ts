@@ -1,5 +1,6 @@
 import { ActionType } from "./ActionType";
 import { CardRecord } from "../models";
+import extract from './ButtonExtractor';
 import CardManager from "../CardManager";
 import * as _ from 'lodash';
 
@@ -23,6 +24,9 @@ export class ActionData {
     }
     public padStart(val: string, count: number, ch: string) {
         return _.padStart(val, count, ch);
+    }
+    public extract(card: CardRecord): {} | undefined {
+        return extract(card);
     }
     public get(key: string) {
         return this.state.get(key);

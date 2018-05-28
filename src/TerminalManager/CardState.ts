@@ -59,6 +59,7 @@ export class CardState {
     ) {
         const card = this.card.getCard(action.cardId) || this.card;
         if (CardManager.canApplyAction(card, action)) {
+            action = action.set('data', this.clearUnusedProps(action.data));
             this.pendingActions = this.pendingActions.push(action);
             this.resultCard = CardManager.applyAction(this.resultCard, action, false);
             const nextActions = await this.getNextActions(action, canEditAction, editAction);
@@ -87,5 +88,16 @@ export class CardState {
             (r, a) => CardManager.applyAction(r, a, false), this.originalCard
         );
         return this.resultCard;
+    }
+
+    private clearUnusedProps(data: any): any {
+        const result = data;
+        const keys = Object.keys(result);
+        for (const key of keys) {
+            if (result[key] === '' || result[key] === 0) {
+                delete result[key];
+            }
+        }
+        return result;
     }
 }

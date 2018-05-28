@@ -8,6 +8,7 @@ export default (): IMap<string, TagTypeRecord> => {
         'customerPhone',
         'orderDiscount',
         'orderProduct',
+        'productModifier',
         'ticketCustomer',
         'ticketDiscount',
         'ticketStatus',

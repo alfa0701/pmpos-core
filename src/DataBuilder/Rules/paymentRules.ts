@@ -8,8 +8,8 @@ const data = {
         when {
             r: Result;
             s: State;
-            a: Action a.type == 'EXECUTE_COMMAND' from s.action;
-            a: Action a.data.name == 'Add Payment' from s.action;
+            a: Action (a.type == 'EXECUTE_COMMAND') from s.action;
+            a: Action (a.data.name == 'Add Payment') from s.action;
         }
         then {
             r.add('ASK_QUESTION',{
@@ -31,8 +31,8 @@ const data = {
         when {
             r: Result;
             s: State;
-            a: Action a.type == 'ASK_QUESTION' from s.action;
-            a: Action a.data.tag == 'MyPayment' from s.action;
+            a: Action (a.type == 'ASK_QUESTION') from s.action;
+            a: Action (a.data.tag == 'MyPayment') from s.action;
             s: State s.state.get('amount') > 0 && s.state.get('type') !== undefined;
         }
         then {

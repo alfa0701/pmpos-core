@@ -158,6 +158,11 @@ export class CardRecord extends Record<ICard>({
         return this.cards.find(card => card.getSubCard(name) !== undefined);
     }
 
+    public findSubTag(subCardName: string, tagValue: string): CardTagRecord | undefined {
+        const subCard = this.getSubCard(subCardName);
+        return subCard && subCard.tags.find(t => t.value === tagValue);
+    }
+
     public getCard(id: string): CardRecord | undefined {
         if (!id) { return undefined; }
         if (this.id === id) { return this; }

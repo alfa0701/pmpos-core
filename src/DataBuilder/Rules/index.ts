@@ -6,7 +6,8 @@ export default (): IMap<string, RuleRecord> => {
     [
         'defaultRules',
         'paymentRules',
-        'tableSelectionRules'
+        'tableSelectionRules',
+        'addProductRules'
     ].map(r => require('./' + r).default).forEach(rule => { rules = rules.set(rule.id, rule); });
     return rules;
 };

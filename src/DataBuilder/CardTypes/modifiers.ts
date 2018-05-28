@@ -1,11 +1,9 @@
 import { CardTypeRecord } from '../../models';
-import productModifierReferences from './productModifierReferences';
 
 const data = {
-    id: 'HJJK7P6cG',
-    name: 'Products',
-    reference: 'Product',
-    subCardTypes: [productModifierReferences.id]
+    id: 'rJoaCeDJ7',
+    name: 'Modifiers',
+    reference: 'Modifier'
 };
 
 // id: string;
