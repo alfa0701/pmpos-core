@@ -6,6 +6,7 @@ const data = {
     tagName: 'Product',
     cardTypeReferenceName: 'Product',
     showValue: true,
+    showCategory: false,
     showQuantity: true,
     defaultQuantity: 1,
     showUnit: false,

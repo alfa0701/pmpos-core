@@ -5,6 +5,7 @@ export interface ITagType {
     name: string;
     tagName: string;
     cardTypeReferenceName: string;
+    showCategory: boolean;
     showValue: boolean;
     showQuantity: boolean;
     showUnit: boolean;
@@ -17,6 +18,7 @@ export interface ITagType {
     displayFormat: string;
     icon: string;
     defaultFunction: string;
+    defaultCategory: string;
     defaultValue: string;
     defaultSource: string;
     defaultTarget: string;
@@ -30,6 +32,7 @@ export class TagTypeRecord extends Record<ITagType>({
     name: '',
     tagName: '',
     cardTypeReferenceName: '',
+    showCategory: true,
     showValue: true,
     showQuantity: true,
     showUnit: true,
@@ -42,6 +45,7 @@ export class TagTypeRecord extends Record<ITagType>({
     displayFormat: '',
     icon: '',
     defaultFunction: '',
+    defaultCategory: '',
     defaultValue: '',
     defaultSource: '',
     defaultTarget: '',
@@ -50,7 +54,7 @@ export class TagTypeRecord extends Record<ITagType>({
     defaultAmount: 0
 }) {
     public isTagSelection(): boolean {
-        if (!this.id || !this.cardTypeReferenceName || !this.showValue
+        if (!this.id || !this.cardTypeReferenceName || !this.showValue || this.showCategory
             || this.showQuantity || this.showUnit || this.showAmount
             || this.showSource || this.showTarget || this.showFunction) {
             return false;

@@ -5,6 +5,7 @@ const data = {
     name: 'Customer Address',
     tagName: 'Address',
     showValue: true,
+    showCategory: false,
     showQuantity: false,
     showUnit: false,
     showAmount: false,

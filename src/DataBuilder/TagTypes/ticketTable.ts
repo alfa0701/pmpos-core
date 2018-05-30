@@ -6,6 +6,7 @@ const data = {
     tagName: 'Table',
     cardTypeReferenceName: 'Table',
     showValue: true,
+    showCategory: false,
     showQuantity: false,
     showUnit: false,
     showAmount: false,

@@ -5,6 +5,7 @@ export interface ICardTag {
     id: string;
     typeId: string;
     name: string;
+    category: string;
     value: string;
     quantity: number;
     unit: string;
@@ -21,6 +22,7 @@ export class CardTagRecord extends Record<ICardTag>({
     id: '',
     typeId: '',
     name: '',
+    category: '',
     value: '',
     quantity: 0,
     unit: '',

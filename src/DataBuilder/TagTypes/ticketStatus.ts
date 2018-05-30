@@ -5,6 +5,7 @@ const data = {
     name: 'Ticket Status',
     tagName: 'Status',
     showValue: true,
+    showCategory: false,
     showQuantity: false,
     showUnit: false,
     showAmount: false,

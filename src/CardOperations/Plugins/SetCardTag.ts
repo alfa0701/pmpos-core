@@ -50,6 +50,9 @@ export default class SetCardTag extends CardOperation {
                 if (!data.name && tt.tagName) {
                     data.name = tt.tagName;
                 }
+                if (!data.category && tt.defaultCategory) {
+                    data.category = tt.defaultCategory;
+                }
                 if (!data.value && tt.defaultValue) {
                     data.value = tt.defaultValue;
                 }
@@ -161,6 +164,9 @@ export default class SetCardTag extends CardOperation {
     private valueChanged(currentValue: CardTagRecord, data: any) {
         if (!currentValue) {
             // console.log('has no current value');
+            return true;
+        }
+        if (currentValue.category !== data.category) {
             return true;
         }
         if (currentValue.value !== data.value) {

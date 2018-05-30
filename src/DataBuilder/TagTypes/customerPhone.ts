@@ -5,6 +5,7 @@ const data = {
     name: 'Customer Phone',
     tagName: 'Phone',
     showValue: true,
+    showCategory: false,
     showQuantity: false,
     showUnit: false,
     showAmount: false,

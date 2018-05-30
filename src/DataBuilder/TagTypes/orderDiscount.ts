@@ -6,6 +6,7 @@ const data = {
     tagName: 'Discount',
     showValue: false,
     defaultValue: 'Discount',
+    showCategory: false,
     showQuantity: false,
     showUnit: false,
     showAmount: true,
