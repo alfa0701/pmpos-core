@@ -61,7 +61,7 @@ const data = {
                 type: 'Order'
             });
             let selectedPortion = s.get('Portions')[0];
-            console.log('SP',selectedPortion);
+            console.log('SP', selectedPortion);
             if (selectedPortion) {
                 r.add('SET_CARD_TAG', {
                     type: 'Order Product',
@@ -78,12 +78,12 @@ const data = {
             for (const key of s.get('lastKeys')) {
                 if (key !== 'Portions') {
                     const selectedValues = s.get(key);
-                    console.log('keys',key,selectedValues);
+                    console.log('keys', key, selectedValues);
                     for (const value of selectedValues) {
                         r.add('SET_CARD_TAG', {
-                            value:value.value,
-                            amount:value.amount,
-                            quantity:value.quantity
+                            value: value.value,
+                            amount: value.amount,
+                            quantity: value.quantity > 1 ? value.quantity : 0
                         });
                     }
                 }
