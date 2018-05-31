@@ -30,6 +30,7 @@ export class RuleManager {
     }
 
     public setState(name: string, value: any) {
+        console.log('State update', name, value);
         this.state = this.state.set(name, value);
     }
 

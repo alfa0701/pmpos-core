@@ -152,6 +152,15 @@ export class CardRecord extends Record<ICard>({
         return this.cards.valueSeq().toArray();
     }
 
+    get allCardsSorted(): CardRecord[] {
+        return this.allCards.sort((a, b) => {
+            if (a.index < b.index) { return -1 };
+            if (a.index > b.index) { return 1 };
+            if (a.index === b.index) { return a.time - b.time };
+            return 0;
+        });
+    }
+
     public getSubCard(name: string): CardRecord | undefined {
         if (!name) { return undefined; }
         if (this.name === name) { return this; }

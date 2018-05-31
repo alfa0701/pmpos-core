@@ -39,7 +39,7 @@ const data = {
             p: Card from s.load('Products', a.params.Name);
         }
         then {
-            const parameters = s.extract(p);
+            const parameters = p;
             r.add('ASK_QUESTION', {
                 question: 'Select Portion',
                 tag: 'SelectPortion',
@@ -60,14 +60,14 @@ const data = {
             r.add('CREATE_CARD', {
                 type: 'Order'
             });
-            let selectedPortion = s.get('Portions');
+            let selectedPortion = s.get('Portions')[0];
+            console.log('SP',selectedPortion);
             if (selectedPortion) {
-                let portion = p.findSubTag('Portions', selectedPortion);
                 r.add('SET_CARD_TAG', {
                     type: 'Order Product',
                     value: p.name,
-                    amount: portion.amount,
-                    unit: portion.value
+                    amount: selectedPortion.amount,
+                    unit: selectedPortion.value
                 });
             } else {
                 r.add('SET_CARD_TAG', {
@@ -75,13 +75,17 @@ const data = {
                     value: p.name
                 });
             }
-            for (const key of Object.keys(a.data.parameters)) {
-                const value = s.get(key);
-                if (key !== 'Portions' && value) {
-                    r.add('SET_CARD_TAG', {
-                        name: key,
-                        value
-                    });
+            for (const key of s.get('lastKeys')) {
+                if (key !== 'Portions') {
+                    const selectedValues = s.get(key);
+                    console.log('keys',key,selectedValues);
+                    for (const value of selectedValues) {
+                        r.add('SET_CARD_TAG', {
+                            value:value.value,
+                            amount:value.amount,
+                            quantity:value.quantity
+                        });
+                    }
                 }
             }
         }
