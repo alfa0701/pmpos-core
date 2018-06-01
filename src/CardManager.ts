@@ -172,7 +172,11 @@ export class CardManager {
     private addCommit(commit: ICommit) {
         this.commits = this.commits.update(commit.cardId, list => {
             if (!list) { list = List<CommitRecord>(); }
-            return list.push(makeDeepCommit(commit));
+            // not really needed but adds commits on hot update
+            if (!list.find(c => c.id === commit.id)) {
+                return list.push(makeDeepCommit(commit));
+            }
+            return list;
         });
         this.cards = this.cards.update(commit.cardId, cardRecord => {
             const commits = this.commits.get(commit.cardId) as List<CommitRecord>;

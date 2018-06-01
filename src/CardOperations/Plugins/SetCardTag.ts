@@ -197,6 +197,10 @@ export default class SetCardTag extends CardOperation {
             // console.log('target changed');
             return true;
         }
+        if (currentValue.ref !== data.ref) {
+            // console.log('reference changed');
+            return true;
+        }
         // console.log('value didnt changed');
         return false;
     }

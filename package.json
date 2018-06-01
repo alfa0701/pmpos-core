@@ -1,6 +1,6 @@
 {
   "name": "pmpos-core",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,20 +12,22 @@
     "type": "git",
     "url": "https://github.com/emreeren/pmpos-core.git"
   },
-  "keywords": ["pmpos"],
+  "keywords": [
+    "pmpos"
+  ],
   "author": "Emre Eren <emreeren@gmail.com> (sambapos.com)",
   "license": "MIT",
   "devDependencies": {
     "@types/debug": "0.0.30",
     "@types/faker": "^4.1.2",
-    "@types/node": "^9.6.18",
+    "@types/node": "^9.6.20",
     "@types/shortid": "0.0.29",
     "expr-eval": "^1.2.1",
     "immutable": "^4.0.0-rc.9",
     "lodash": "^4.17.10",
     "shortid": "^2.2.8",
     "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.8.3",
+    "typescript": "^2.9.1",
     "y-array": "^11.0.0-5",
     "y-indexeddb": "^9.0.0-5",
     "y-map": "^11.0.0-1",

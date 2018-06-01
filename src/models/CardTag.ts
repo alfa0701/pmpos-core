@@ -14,6 +14,7 @@ export interface ICardTag {
     source: string;
     target: string;
     cardId: string;
+    ref: string;
     sourceCardId: string;
     targetCardId: string;
 }
@@ -31,6 +32,7 @@ export class CardTagRecord extends Record<ICardTag>({
     source: '',
     target: '',
     cardId: '',
+    ref: '',
     sourceCardId: '',
     targetCardId: ''
 }) {

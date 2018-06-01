@@ -45,7 +45,11 @@ export class CardState {
             action.actionType, action.data, cardId, root, card);
         for (let ac of actions) {
             if (canEditAction && editAction && canEditAction(ac)) {
-                ac = await editAction(ac);
+                try {
+                    ac = await editAction(ac);
+                } catch (error) {
+                    return [];
+                }
             }
             result.push(ac);
         }

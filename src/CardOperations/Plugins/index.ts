@@ -7,19 +7,17 @@ import AskQuestion from './AskQuestion';
 import SelectCard from './SelectCard';
 import SetCardIndex from './SetCardIndex';
 import CommitCard from './CommitCard';
-import DisplayCard from './DisplayCard';
-import SelectCards from './SelectCards';
+import EditCard from './EditCard';
 
 export default [
     new CreateCard(),
     new SetCardTag(),
     new CloseCard(),
     new CommitCard(),
-    new DisplayCard(),
     new SetCardIndex(),
     new ExecuteCommand(),
     new SetState(),
     new AskQuestion(),
     new SelectCard(),
-    new SelectCards()
+    new EditCard()
 ];

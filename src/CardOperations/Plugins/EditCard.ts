@@ -1,15 +1,15 @@
 import CardOperation from '../CardOperation';
 import { ActionRecord, CardRecord } from '../../models';
 
-export default class CloseCard extends CardOperation {
+export default class EditCard extends CardOperation {
     constructor() {
-        super('DISPLAY_CARD', 'Display Card');
+        super('EDIT_CARD', 'Edit Card');
     }
     public canEdit(action: ActionRecord): boolean {
-        return false;
+        return true;
     }
     public canApply(card: CardRecord, data: any): boolean {
-        return true;
+        return !card.isClosed;
     }
     public readConcurrencyData(card: CardRecord, actionData: any) {
         return undefined;

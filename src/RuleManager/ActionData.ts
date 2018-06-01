@@ -28,7 +28,9 @@ export class ActionData {
         return this.state.get(key);
     }
     public getValue(key) {
-        const values = this.get(key);
+        const values = this.state.has('selectedValues')
+            ? this.get('selectedValues').get(key)
+            : this.get(key);
         return Array.isArray(values) ? values[0].value : values;
     }
 }
