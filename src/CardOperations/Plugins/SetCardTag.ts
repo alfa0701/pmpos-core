@@ -12,7 +12,7 @@ export default class SetCardTag extends CardOperation {
     }
 
     public canEdit(action: ActionRecord): boolean {
-        return !action.data.value;
+        return !action.data.name && !action.data.value;
     }
 
     public readConcurrencyData(card: CardRecord, data: CardTagRecord) {

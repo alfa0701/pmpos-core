@@ -29,7 +29,7 @@ export class ActionData {
     }
     public getValue(key) {
         const values = this.state.has('selectedValues')
-            ? this.get('selectedValues').get(key)
+            ? this.get('selectedValues')[key]
             : this.get(key);
         return Array.isArray(values) ? values[0].value : values;
     }

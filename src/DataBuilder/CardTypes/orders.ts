@@ -6,6 +6,7 @@ const data = {
     id: 'BJd0lPfsz',
     name: 'Orders',
     reference: 'Order',
+    commands: ['Edit Card'],
     tagTypes: [orderProduct.id, orderDiscount.id]
 };
 

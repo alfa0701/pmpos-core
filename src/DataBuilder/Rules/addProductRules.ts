@@ -55,33 +55,30 @@ const data = {
             s: State;
             a: Action(a.type == 'ASK_QUESTION' && a.data.tag == 'SelectPortion') from s.action;
             p: Card from s.load('Products', a.data.cardName);
+            selectedValues: Object from s.get('selectedValues');
+            selectedPortion:Object from selectedValues['Portions'][0];
         }
         then {
             r.add('CREATE_CARD', {
                 type: 'Order'
             });
-            let selectedPortion = s.get('Portions')[0];
-            console.log('SP', selectedPortion);
-            if (selectedPortion) {
-                r.add('SET_CARD_TAG', {
-                    type: 'Order Product',
-                    value: p.name,
-                    amount: selectedPortion.amount,
-                    unit: selectedPortion.value
-                });
-            } else {
-                r.add('SET_CARD_TAG', {
-                    type: 'Order Product',
-                    value: p.name
-                });
-            }
-            for (const key of s.get('lastKeys')) {
+    
+            r.add('SET_CARD_TAG', {
+                type: 'Order Product',
+                value: p.name,
+                category: 'Portions',
+                ref: selectedPortion.ref,
+                amount: selectedPortion.amount,
+                unit: selectedPortion.value
+            });
+    
+            for (const key of Object.keys(selectedValues)) {
                 if (key !== 'Portions') {
-                    const selectedValues = s.get(key);
-                    console.log('keys', key, selectedValues);
-                    for (const value of selectedValues) {
+                    for (const value of selectedValues[key]) {
                         r.add('SET_CARD_TAG', {
                             value: value.value,
+                            category: key,
+                            ref: value.ref,
                             amount: value.amount,
                             quantity: value.quantity > 1 ? value.quantity : 0
                         });

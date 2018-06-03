@@ -14,6 +14,7 @@ export class ResultType {
     }
 
     public add(type: string, data: any) {
+        console.log('added', type, data);
         this.actions.push(new ActionType(type, data));
     }
 

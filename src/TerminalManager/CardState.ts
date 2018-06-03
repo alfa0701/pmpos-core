@@ -42,7 +42,7 @@ export class CardState {
         const cardId = action.actionType === 'CREATE_CARD' ? action.data.id : action.cardId;
         const card = root.getCard(cardId) || root;
         const actions = await RuleManager.getNextActions(
-            action.actionType, action.data, cardId, root, card);
+            action.actionType, action.data, cardId, card, root);
         for (let ac of actions) {
             if (canEditAction && editAction && canEditAction(ac)) {
                 try {
