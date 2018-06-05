@@ -1,8 +1,7 @@
 import { RuleRecord } from '../../models';
-import * as shortid from 'shortid';
 
 const data = {
-  id: shortid.generate(),
+  id: 'rJZteQgmlX',
   name: 'Table Selection Rules',
   content: `rule SelectTable{
         when {

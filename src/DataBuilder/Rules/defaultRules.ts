@@ -1,8 +1,7 @@
 import { RuleRecord } from '../../models';
-import * as shortid from 'shortid';
 
 const data = {
-  id: shortid.generate(),
+  id: 'rJFx7eQx7',
   name: 'Default Rules',
   content: `rule SetTicketNumber {
         when {

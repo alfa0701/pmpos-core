@@ -36,7 +36,8 @@ export class ProtocolManager {
     ) {
         this.url = url;
         this.mainNetworkName = networkName;
-        this.persistence = enablePersistence ? new Y.IndexedDB() : new Y.TextFileDB();
+        this.persistence = undefined;
+        if (networkName !== 'DEMO') { this.persistence = enablePersistence ? new Y.IndexedDB() : new Y.TextFileDB(); }
         this.onCommitEvent = onCommitEvent;
         ConfigManager.setApplicationParameter('branch', branchName);
         const y = this.getYjsInstance(networkName);

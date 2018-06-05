@@ -28,9 +28,12 @@ export class ActionData {
         return this.state.get(key);
     }
     public getValue(key) {
-        const values = this.state.has('selectedValues')
+        const values = this.getValues(key);
+        return Array.isArray(values) ? values[0].value : values;
+    }
+    public getValues(key) {
+        return this.state.has('selectedValues')
             ? this.get('selectedValues')[key]
             : this.get(key);
-        return Array.isArray(values) ? values[0].value : values;
     }
 }

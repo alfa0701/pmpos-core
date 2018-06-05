@@ -49,7 +49,9 @@ export class TerminalState {
         return this.terminaId === terminalId;
     }
 
-    public async createCard(cardType: string, tags: ICardTag[]) {
+    public async createCard(cardType: string, tags: ICardTag[],
+        canEditAction?: (action: ActionRecord) => boolean,
+        editAction?: (action: ActionRecord) => Promise<ActionRecord>) {
         const ct = ConfigManager.getCardTypeByRef(cardType);
         if (ct) {
             const cardState = new CardState(new CardRecord());
@@ -65,7 +67,7 @@ export class TerminalState {
                     time: new Date().getTime()
                 }
             });
-            await cardState.mutate(cardCreateAction);
+            await cardState.mutate(cardCreateAction, canEditAction, editAction);
             for (const tag of tags) {
                 const actionData = new ActionRecord({
                     id: shortid.generate(),

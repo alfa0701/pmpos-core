@@ -4,7 +4,8 @@ import * as shortid from 'shortid';
 const data = {
     id: shortid.generate(),
     name: 'Add Product Rules',
-    content: `rule AddProduct {
+    content: `
+    rule AddProduct {
         when {
             r: Result;
             s: State;
@@ -41,7 +42,7 @@ const data = {
         then {
             const parameters = p;
             r.add('ASK_QUESTION', {
-                question: 'Select Portion',
+                question: 'Select ' + a.params.Name + ' Options',
                 tag: 'SelectPortion',
                 cardName: a.params.Name,
                 parameters
@@ -49,28 +50,36 @@ const data = {
         }
     }
     
-    rule AddProductWithPortion {
+    
+    rule AddProductPortion {
         when {
             r: Result;
             s: State;
             a: Action(a.type == 'ASK_QUESTION' && a.data.tag == 'SelectPortion') from s.action;
             p: Card from s.load('Products', a.data.cardName);
             selectedValues: Object from s.get('selectedValues');
-            selectedPortion:Object from selectedValues['Portions'][0];
         }
         then {
             r.add('CREATE_CARD', {
                 type: 'Order'
             });
+            const portion = selectedValues.Portions?selectedValues.Portions[0]:undefined;
+            if (portion) {
+                r.add('SET_CARD_TAG', {
+                    type: 'Order Product',
+                    value: p.name,
+                    category: 'Portions',
+                    ref: portion.ref,
+                    amount: portion.amount,
+                    unit: portion.value
+                });
     
-            r.add('SET_CARD_TAG', {
-                type: 'Order Product',
-                value: p.name,
-                category: 'Portions',
-                ref: selectedPortion.ref,
-                amount: selectedPortion.amount,
-                unit: selectedPortion.value
-            });
+            } else {
+                r.add('SET_CARD_TAG', {
+                    type: 'Order Product',
+                    value: p.name,
+                });
+            }
     
             for (const key of Object.keys(selectedValues)) {
                 if (key !== 'Portions') {

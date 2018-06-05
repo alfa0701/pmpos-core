@@ -34,10 +34,12 @@ export class TerminalManager {
         return terminal.openCard(cardId);
     }
 
-    public async createCard(terminalId: string, cardType: string, tags: ICardTag[]) {
+    public async createCard(terminalId: string, cardType: string, tags: ICardTag[],
+        canEditHandler?: (action: ActionRecord) => boolean,
+        editHandler?: (action: ActionRecord) => Promise<ActionRecord>) {
         log('create card requested', terminalId);
         const terminal = this.getTerminal(terminalId);
-        return terminal.createCard(cardType, tags);
+        return terminal.createCard(cardType, tags, canEditHandler, editHandler);
     }
 
     public async closeCard(terminalId: string, cardId: string) {

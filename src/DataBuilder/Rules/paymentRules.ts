@@ -1,8 +1,7 @@
 import { RuleRecord } from '../../models';
-import * as shortid from 'shortid';
 
 const data = {
-    id: shortid.generate(),
+    id: 'BklKxQlXlX',
     name: 'Payment Rules',
     content: `rule AskPayment {
         when {
