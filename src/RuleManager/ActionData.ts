@@ -5,11 +5,11 @@ import * as _ from 'lodash';
 
 export class ActionData {
     public action: ActionType;
-    public card: CardRecord;
-    public root: CardRecord;
+    public card?: CardRecord;
+    public root?: CardRecord;
     public state: Map<string, any>;
 
-    constructor(action: ActionType, card: CardRecord, root: CardRecord, state: Map<string, any>) {
+    constructor(action: ActionType, state: Map<string, any>, card?: CardRecord, root?: CardRecord) {
         this.action = action;
         this.card = card;
         this.root = root;

@@ -2,12 +2,12 @@ import * as shortid from 'shortid';
 import { Map as IMap } from 'immutable';
 import { cardOperations } from '../CardOperations/index';
 import * as Nools from 'nools-ts';
-import { CardRecord, RuleRecord, ActionRecord } from '../models';
+import { CardRecord, RuleRecord, ActionRecord, Widget } from '../models';
 import { ActionType } from './ActionType';
 import { ResultType } from './ResultType';
 import { ActionData } from './ActionData';
 import { ContentType } from './ContentType';
-
+import { WidgetType } from './WidgetType';
 
 export class RuleManager {
     private state: Map<string, any>;
@@ -49,6 +49,8 @@ export class RuleManager {
         defines.set('Result', ResultType);
         defines.set('Content', ContentType);
         defines.set('Card', CardRecord);
+        defines.set('Widget', Widget);
+        defines.set('Widgets', WidgetType);
         const filteredRules = rules
             .filter(x => !x.name.startsWith('_') && x.content.includes('when'))
             .valueSeq().toArray().filter(rule => this.testRule(rule));
@@ -96,7 +98,8 @@ export class RuleManager {
                 const session = flow.getSession(
                     new ActionData(
                         new ActionType(actionType, actionData),
-                        card, root, this.state
+                        this.state,
+                        card, root
                     ),
                     result
                 );
@@ -119,7 +122,8 @@ export class RuleManager {
                 const session = flow.getSession(
                     new ActionData(
                         new ActionType(actionType, actionData),
-                        card, root, this.state
+                        this.state,
+                        card, root
                     ),
                     result
                 );
@@ -134,6 +138,25 @@ export class RuleManager {
         });
     }
 
+    public async getWidgets(actionData: any): Promise<Widget[]> {
+        return new Promise<Widget[]>(resolve => {
+            const promises = this.flows.map(async flow => {
+                const result = new WidgetType();
+                const session = flow.getSession(
+                    new ActionData(new ActionType('GET_WIDGETS', actionData), this.state),
+                    result
+                );
+                await session.match();
+                session.dispose();
+                return result;
+            });
+            Promise.all(promises).then(results => {
+                const result = results.reduce((r, a) => r.concat(a.widgets), new Array<Widget>());
+                resolve(result);
+            });
+        });
+    }
+
     private testRule(rule: RuleRecord) {
         try {
             const defines = new Map();
@@ -142,6 +165,8 @@ export class RuleManager {
             defines.set('Result', ResultType);
             defines.set('Content', ContentType);
             defines.set('Card', CardRecord);
+            defines.set('Widget', Widget);
+            defines.set('Widgets', WidgetType);
             Nools.compile(rule.content, {
                 define: defines,
                 scope: new Map<string, any>([['r', []]])

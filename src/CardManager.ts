@@ -92,6 +92,25 @@ export class CardManager {
         return List<CardRecord>();
     }
 
+    public queryCards(
+        typeName: string,
+        filter: (c: CardRecord) => boolean,
+        grouper: (c: CardRecord) => string
+    ): object {
+        const typeId = ConfigManager.getCardTypeIdByRef(typeName);
+        if (typeId && this.otherIndex) {
+            const index = this.otherIndex.get(typeId);
+            if (index) {
+                const cards = index.toList()
+                    .map(id => this.cards.get(id) as CardRecord)
+                    .filter(x => filter(x))
+                    .sortBy(x => -x.time);
+                return cards.groupBy(c => grouper(c)).toOrderedMap().toJS();
+            }
+        }
+        return {};
+    }
+
     public getCardById(id: string): CardRecord | undefined {
         return this.cards.get(id);
     }

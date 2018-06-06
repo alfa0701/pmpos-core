@@ -9,6 +9,7 @@ import { ICommit, CommitRecord } from "./Commit";
 import { IRule, RuleRecord } from "./Rule";
 import { ITagType, TagTypeRecord } from "./TagType";
 import { makeDeepCard, makeDeepCommit, makeDeepCardData } from "./makers";
+import { Widget } from "./Widget";
 
 export {
     IAction,
@@ -31,5 +32,6 @@ export {
     TagTypeRecord,
     makeDeepCard,
     makeDeepCommit,
-    makeDeepCardData
+    makeDeepCardData,
+    Widget
 };

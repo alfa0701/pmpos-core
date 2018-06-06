@@ -25,6 +25,7 @@
     "expr-eval": "^1.2.1",
     "immutable": "^4.0.0-rc.9",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "shortid": "^2.2.8",
     "tslint-config-prettier": "^1.13.0",
     "typescript": "^2.9.1",
@@ -47,6 +48,7 @@
     "y-memory": "^9.0.0-1",
     "immutable": "^4.0.0-rc.9",
     "lodash": "^4.17.5",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "moment": "^2.22.2"
   }
 }

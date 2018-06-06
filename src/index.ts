@@ -10,7 +10,7 @@ import {
     IAction, ActionRecord, IActionState, ICard, CardRecord, ICardData,
     CardDataRecord, ICardTag, CardTagRecord, CardTagData, ICardType, CardTypeRecord,
     ICommit, CommitRecord, IRule, RuleRecord, ITagType, TagTypeRecord, makeDeepCard,
-    makeDeepCommit, makeDeepCardData
+    makeDeepCommit, makeDeepCardData, Widget
 } from './models';
 
 export {
@@ -43,5 +43,6 @@ export {
     TagTypeRecord,
     makeDeepCard,
     makeDeepCommit,
-    makeDeepCardData
+    makeDeepCardData,
+    Widget
 };
