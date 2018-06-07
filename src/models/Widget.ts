@@ -5,6 +5,7 @@ export interface IWidgetLegend {
 }
 
 export class Widget {
+    public key: string;
     public title: string;
     public data: any;
     public legends: IWidgetLegend[];

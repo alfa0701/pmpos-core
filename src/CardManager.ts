@@ -105,7 +105,12 @@ export class CardManager {
                     .map(id => this.cards.get(id) as CardRecord)
                     .filter(x => filter(x))
                     .sortBy(x => -x.time);
-                return cards.groupBy(c => grouper(c)).toOrderedMap().toJS();
+                return cards.groupBy(c => grouper(c))
+                    .toOrderedMap()
+                    .reduce((r, m, k) => {
+                        r[k] = m.valueSeq().toArray();
+                        return r;
+                    }, {});
             }
         }
         return {};

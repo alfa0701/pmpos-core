@@ -10,7 +10,8 @@ export default (): IMap<string, RuleRecord> => {
         'addProductRules',
         'editCardRule',
         'testRule',
-        'newCardProps'
+        'newCardProps',
+        'buildWidgets'
     ].map(r => require('./' + r).default).forEach(rule => { rules = rules.set(rule.id, rule); });
     return rules;
 };

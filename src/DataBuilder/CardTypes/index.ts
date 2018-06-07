@@ -4,6 +4,7 @@ import { CardTypeRecord } from '../../models';
 export default (): IMap<string, CardTypeRecord> => {
     let cardTypes: IMap<string, CardTypeRecord> = IMap<string, CardTypeRecord>();
     [
+        'tickets',
         'customers',
         'locations',
         'modifierGroups',
@@ -11,8 +12,7 @@ export default (): IMap<string, CardTypeRecord> => {
         'orders',
         'products',
         'productModifierReferences',
-        'tables',
-        'tickets'
+        'tables'
     ].map(r => require('./' + r).default).forEach(ct => cardTypes = cardTypes.set(ct.id, ct));
     return cardTypes;
 };
