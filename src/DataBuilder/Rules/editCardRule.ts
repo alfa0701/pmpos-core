@@ -44,16 +44,24 @@ const data = {
                         ref: value.ref,
                         unit: value.value,
                         amount: value.amount,
-                        quantity: tag.quantity
+                        quantity: tag.quantity,
+                        source: tag.source,
+                        target: tag.target
                     });
                 } else {
                     for (const value of values) {
                         r.add('SET_CARD_TAG', {
+                            name: value.tagName,
                             value: value.value,
                             category: key,
                             ref: value.ref,
+                            unit: value.unit,
+                            typeId: value.typeId,
                             amount: value.amount,
-                            quantity: value.quantity > 1 ? value.quantity : 0
+                            quantity: value.quantity > 1 || value.amount !== 0 ? value.quantity : 0,
+                            source: value.source,
+                            target: value.target,
+                            func: value.func
                         });
                     }
                 }
