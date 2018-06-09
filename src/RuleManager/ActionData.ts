@@ -29,7 +29,7 @@ export class ActionData {
     }
     public getValue(key) {
         const values = this.getValues(key);
-        return Array.isArray(values) ? values[0].value : values;
+        return Array.isArray(values) ? (values[0] ? values[0].value : undefined) : values;
     }
     public getValues(key) {
         return this.state.has('selectedValues')

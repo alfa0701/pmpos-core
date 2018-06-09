@@ -9,7 +9,7 @@ export default class CommitCard extends CardOperation {
         return false;
     }
     public canApply(card: CardRecord, data: any): boolean {
-        return data.id && !card.isClosed;
+        return data.id;
     }
     public readConcurrencyData(card: CardRecord, actionData: any) {
         return undefined;
