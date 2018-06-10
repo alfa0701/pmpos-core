@@ -110,11 +110,11 @@ export class TerminalState {
         }
     }
 
-    public removePendingActions(cardId: string, subCardId: string): CardRecord {
+    public removePendingActions(cardId: string, subCardId: string): CardRecord | undefined {
         const cardState = this.openCards.get(cardId);
         if (cardState) {
             cardState.removePendingActionsForCard(subCardId);
-            return cardState.card;
+            return cardState.card.id ? cardState.card : undefined;
         } else {
             throw new Error(`Card [${cardId}] is not opened`);
         }
@@ -148,7 +148,7 @@ export class TerminalState {
         if (cardState) {
             const action = new ActionRecord({
                 id: shortid.generate(),
-                cardId: actionCardId,
+                cardId: actionCardId || cardId,
                 actionType: type,
                 data
             });

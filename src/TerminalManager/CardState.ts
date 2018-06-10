@@ -77,9 +77,13 @@ export class CardState {
 
     public removePendingActionsForCard(cardId: string) {
         this.pendingActions = this.pendingActions.filter(a => !a.relatesToCard(cardId));
-        this.resultCard = this.pendingActions.reduce(
-            (r, a) => CardManager.applyAction(r, a, false), this.originalCard
-        );
+        if (this.pendingActions.count() === 0) {
+            this.resultCard = new CardRecord();
+        } else {
+            this.resultCard = this.pendingActions.reduce(
+                (r, a) => CardManager.applyAction(r, a, false), this.originalCard
+            );
+        }
     }
 
     public async mutate(

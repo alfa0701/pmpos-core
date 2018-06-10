@@ -3,8 +3,7 @@ import { RuleRecord } from '../../models';
 const data = {
     id: 'Sy_87lXem',
     name: 'New Card Props',
-    content: `
-    rule SetNewCardProps {
+    content: `rule SetNewCardProps {
         when {
             r: Result;
             s: State;
@@ -36,7 +35,7 @@ const data = {
                 name: 'Name',
                 value: s.getValue('Name')
             });
-            const items = s.getValues('Items').split(/\\n/);
+            const items = s.getValues('Items').split(/\\n/).filter(x => x);
             for (const item of items) {
                 r.add('CREATE_CARD', {
                     type: 'Modifier'

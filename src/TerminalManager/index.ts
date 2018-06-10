@@ -70,7 +70,7 @@ export class TerminalManager {
         return terminal.executeAction(cardId, actionCardId, type, data, canEditHandler, editHandler, closeHandler);
     }
 
-    public removePendingActions(terminalId: string, cardId: string, subCardId: string): CardRecord {
+    public removePendingActions(terminalId: string, cardId: string, subCardId: string): CardRecord | undefined {
         log('remove pending actions', terminalId, cardId);
         const terminal = this.getTerminal(terminalId);
         cardId = this.getCardId(cardId, terminal);

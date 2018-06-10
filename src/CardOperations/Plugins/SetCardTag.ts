@@ -1,7 +1,7 @@
 import * as shortid from 'shortid';
 import CardOperation from '../CardOperation';
 import CardManager from '../../CardManager';
-import { ActionRecord, CardRecord, CardTagRecord } from '../../models';
+import { ActionRecord, CardRecord, CardTagRecord, ICardTag } from '../../models';
 import ConfigManager from '../../ConfigManager';
 
 export default class SetCardTag extends CardOperation {
@@ -19,7 +19,17 @@ export default class SetCardTag extends CardOperation {
         return card.getIn(['tags', data.name]);
     }
 
-    public reduce(card: CardRecord, data: CardTagRecord): CardRecord {
+    public reduce(card: CardRecord, data: ICardTag): CardRecord {
+        let currentData = card.getIn(['tags', data.name]) as CardTagRecord;
+        if (currentData) {
+            for (const key of Object.keys(data)) {
+                const value = data[key];
+                if (value != null && currentData.has(key)) {
+                    currentData = currentData.set(key, value)
+                }
+            }
+            data = currentData.toJS();
+        }
         const fixedData = this.fixData(data);
         // fixedData = this.fixType(card, fixedData);
         const r = new CardTagRecord(fixedData);
@@ -143,13 +153,13 @@ export default class SetCardTag extends CardOperation {
         return action.set('data', data);
     }
 
-    private tagValueRemoved(card: CardRecord, data: CardTagRecord) {
+    private tagValueRemoved(card: CardRecord, data: ICardTag) {
         return card.tags.has(data.name)
             && card.getTag(data.name, undefined)
             && !data.value;
     }
 
-    private tagAmountRemoved(card: CardRecord, data: CardTagRecord) {
+    private tagAmountRemoved(card: CardRecord, data: ICardTag) {
         return card.tags.has(data.name) && data.func && data.amount === 0;
     }
 

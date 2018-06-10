@@ -149,7 +149,7 @@ export class CardRecord extends Record<ICard>({
     }
 
     get allCards(): CardRecord[] {
-        return this.cards.valueSeq().toArray();
+        return this.cards.filter(x => !x.isClosed).valueSeq().toArray();
     }
 
     get allCardsSorted(): CardRecord[] {

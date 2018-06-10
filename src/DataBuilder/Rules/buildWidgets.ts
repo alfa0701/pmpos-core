@@ -48,8 +48,6 @@ const data = {
             widget.addWidgetLegend('today', '#8884d8', 3);
             r.add(widget);
     
-            console.log('today', todaycards);
-    
             const totalData = range.map(x => ({
                 name: fmt(x),
                 today: todaycards[x] ? todaycards[x].reduce((r, c) => r + c.debit, 0) : 0,
