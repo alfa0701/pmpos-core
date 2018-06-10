@@ -35,7 +35,7 @@ const data = {
                 name: 'Name',
                 value: s.getValue('Name')
             });
-            const items = s.getValues('Items').split(/\\n/).filter(x => x);
+            const items = s.getValues('Items').split(/\n/).filter(x => x.trim());
             for (const item of items) {
                 r.add('CREATE_CARD', {
                     type: 'Modifier'
