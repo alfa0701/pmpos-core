@@ -9,7 +9,7 @@ export default class SelectCard extends CardOperation {
         return true;
     }
     public canApply(card: CardRecord, data: any): boolean {
-        return !card.isClosed;
+        return true;
     }
     public readConcurrencyData(card: CardRecord, actionData: any) {
         return undefined;

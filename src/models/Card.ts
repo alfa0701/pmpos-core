@@ -7,6 +7,7 @@ export interface ICard {
     typeId: string;
     type: string;
     isClosed: boolean;
+    validationIssues: List<string>;
     index: number;
     tags: IMap<string, CardTagRecord>;
     cards: IMap<string, CardRecord>;
@@ -18,6 +19,7 @@ export class CardRecord extends Record<ICard>({
     typeId: '',
     type: '',
     index: 0,
+    validationIssues: List<string>(),
     isClosed: false,
     tags: IMap<string, CardTagRecord>(),
     cards: IMap<string, CardRecord>()
@@ -161,6 +163,10 @@ export class CardRecord extends Record<ICard>({
         });
     }
 
+    get isValid(): boolean {
+        return this.validationIssues.count() === 0;
+    }
+
     public getSubCard(name: string): CardRecord | undefined {
         if (!name) { return undefined; }
         if (this.name === name) { return this; }
@@ -215,5 +221,9 @@ export class CardRecord extends Record<ICard>({
 
     public includes(lowCaseSearchValue: string): boolean {
         return this.tags.some(tag => tag.value.toLowerCase().includes(lowCaseSearchValue))
+    }
+
+    public addValidationIssue(issue: string): CardRecord {
+        return this.update('validationIssues', items => items.push(issue));
     }
 }

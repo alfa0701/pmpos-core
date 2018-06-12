@@ -160,7 +160,7 @@ export default class SetCardTag extends CardOperation {
     }
 
     private tagAmountRemoved(card: CardRecord, data: ICardTag) {
-        return card.tags.has(data.name) && data.func && data.amount === 0;
+        return card.tags.has(data.name) && data.amount === 0;
     }
 
     private valueNeeded(data: any, currentValue: CardTagRecord): boolean {

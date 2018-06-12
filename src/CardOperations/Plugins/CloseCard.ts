@@ -1,5 +1,6 @@
 import CardOperation from '../CardOperation';
 import { ActionRecord, CardRecord } from '../../models';
+import CardValidator from '../../CardValidator';
 
 export default class CloseCard extends CardOperation {
     constructor() {
@@ -9,13 +10,18 @@ export default class CloseCard extends CardOperation {
         return false;
     }
     public canApply(card: CardRecord, data: any): boolean {
-        return data.id && !card.isClosed && card.balance === 0;
+        return data.id;
     }
     public readConcurrencyData(card: CardRecord, actionData: any) {
         return undefined;
     }
     public reduce(card: CardRecord, data: any): CardRecord {
-        return card.set('isClosed', true);
+        let result = card.set('isClosed', true).update('validationIssues', l => l.clear());
+        result = CardValidator.validate(result);
+        if (!result.isValid) {
+            result = result.set('isClosed', false);
+        }
+        return result;
     }
     public fixData(data: any) {
         return data;
