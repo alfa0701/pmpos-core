@@ -4,8 +4,7 @@ import * as shortid from 'shortid';
 const data = {
     id: shortid.generate(),
     name: 'Add Product Rules',
-    content: `
-    rule AddProduct {
+    content: `rule AddProduct {
         when {
             r: Result;
             s: State;
@@ -14,6 +13,10 @@ const data = {
         }
         then {
             if (p.allCards.length === 0) {
+                r.add('SET_CARD_TAG', {
+                    'value': 'New Orders',
+                    'type': 'Ticket Status'
+                });
                 r.add('CREATE_CARD', {
                     type: 'Order'
                 });
@@ -60,10 +63,14 @@ const data = {
             selectedValues: Object from s.get('selectedValues');
         }
         then {
+            r.add('SET_CARD_TAG', {
+                'value': 'New Orders',
+                'type': 'Ticket Status'
+            });
             r.add('CREATE_CARD', {
                 type: 'Order'
             });
-            const portion = selectedValues.Portions?selectedValues.Portions[0]:undefined;
+            const portion = selectedValues.Portions ? selectedValues.Portions[0] : undefined;
             if (portion) {
                 r.add('SET_CARD_TAG', {
                     type: 'Order Product',

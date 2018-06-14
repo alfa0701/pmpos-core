@@ -35,11 +35,15 @@ const data = {
             s: State s.getValue('amount') !== 0 && s.getValue('type') !== '';
         }
         then {
+            r.add('SET_CARD_TAG', {
+                'value': 'Unpaid',
+                'type': 'Ticket Status'
+            });
             r.add('CREATE_CARD', {
                 type: 'Payment'
             });
             const amount = s.getValue('amount');
-            const location = amount > 0 ?'target':'source';
+            const location = amount > 0 ? 'target' : 'source';
             r.add('SET_CARD_TAG', {
                 'value': s.getValue('type'),
                 'amount': Math.abs(amount),

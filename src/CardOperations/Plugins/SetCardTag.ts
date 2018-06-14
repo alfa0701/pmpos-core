@@ -116,8 +116,12 @@ export default class SetCardTag extends CardOperation {
 
     public canApply(card: CardRecord, data: any): boolean {
         const currentValue = card.getIn(['tags', data.name]) as CardTagRecord;
-        if (!data.name || (this.valueNeeded(data, currentValue) && !data.value)) { return false; }
-        if (this.amountNeeded(data, currentValue) && data.amount === 0) { return false; }
+        if (!data.name || (this.valueNeeded(data, currentValue) && !data.value)) {
+            return false;
+        }
+        if (this.amountNeeded(data, currentValue) && data.amount === 0) {
+            return false;
+        }
         return this.valueChanged(currentValue, data);
     }
     public processPendingAction(action: ActionRecord): ActionRecord {
@@ -160,7 +164,7 @@ export default class SetCardTag extends CardOperation {
     }
 
     private tagAmountRemoved(card: CardRecord, data: ICardTag) {
-        return card.tags.has(data.name) && data.amount === 0;
+        return card.tags.has(data.name) && data.func && data.amount === 0;
     }
 
     private valueNeeded(data: any, currentValue: CardTagRecord): boolean {
@@ -211,7 +215,6 @@ export default class SetCardTag extends CardOperation {
             // console.log('reference changed');
             return true;
         }
-        // console.log('value didnt changed');
         return false;
     }
 }
