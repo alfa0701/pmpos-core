@@ -17,6 +17,7 @@ export interface ICardTag {
     ref: string;
     sourceCardId: string;
     targetCardId: string;
+    validUntil: number;
 }
 
 export class CardTagRecord extends Record<ICardTag>({
@@ -34,7 +35,8 @@ export class CardTagRecord extends Record<ICardTag>({
     cardId: '',
     ref: '',
     sourceCardId: '',
-    targetCardId: ''
+    targetCardId: '',
+    validUntil: 0
 }) {
 
     get display(): string {
@@ -68,20 +70,21 @@ export class CardTagRecord extends Record<ICardTag>({
         }
         return this.amount;
     }
+
     public getInQuantityFor(location?: string): number {
         location = location && location.toLowerCase();
-        if (location && this.value.toLowerCase().includes(location)) {
+        if (this.valueMatches(location)) {
             return this.target ? this.quantity : 0;
         }
-        return this.target && (!location || this.target.toLowerCase().includes(location)) ? this.quantity : 0;
+        return this.isTarget(location) ? this.quantity : 0;
     }
 
     public getOutQuantityFor(location?: string): number {
         location = location && location.toLowerCase();
-        if (location && this.value.toLowerCase().includes(location)) {
+        if (this.valueMatches(location)) {
             return this.target ? 0 : this.quantity;
         }
-        return this.source && (!location || this.source.toLowerCase().includes(location)) ? this.quantity : 0;
+        return this.isSource(location) ? this.quantity : 0;
     }
 
     public getTotalQuantityFor(location: string): number {
@@ -93,9 +96,33 @@ export class CardTagRecord extends Record<ICardTag>({
     }
 
     public acceptsFilter(filter: string): boolean {
+        if (this.isUnitFilter(filter)) { return this.unitMatches(filter); }
         const sv = filter.toLowerCase();
-        return (this.value.toLowerCase().includes(sv) && this.name !== 'Name')
+        return (this.value.toLowerCase().includes(sv) && ['Name', 'Source', 'Target'].indexOf(this.name) === -1)
             || this.source.toLowerCase().includes(sv)
             || this.target.toLowerCase().includes(sv);
+    }
+
+    private isUnitFilter(filter: string) {
+        return filter.includes('.') && Boolean(this.unit);
+    }
+
+    private unitMatches(filter: string): boolean {
+        const parts = filter.split('.').map(x => x.toLowerCase());
+        return this.value.toLowerCase().includes(parts[0]) && this.unit.toLowerCase().includes(parts[1]);
+    }
+
+    private valueMatches(filter?: string): boolean {
+        if (!filter) { return false; }
+        if (this.isUnitFilter(filter)) { return this.unitMatches(filter); }
+        return this.value.toLowerCase().includes(filter);
+    }
+
+    private isSource(location: string | undefined) {
+        return this.source && (!location || this.source.toLowerCase().includes(location));
+    }
+
+    private isTarget(location: string | undefined) {
+        return this.target && (!location || this.target.toLowerCase().includes(location))
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "pmpos-core",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/debug": "0.0.30",
     "@types/faker": "^4.1.2",
-    "@types/node": "^9.6.20",
+    "@types/node": "^9.6.22",
     "@types/shortid": "0.0.29",
     "expr-eval": "^1.2.1",
     "immutable": "^4.0.0-rc.9",
@@ -28,12 +28,12 @@
     "moment": "^2.22.2",
     "shortid": "^2.2.8",
     "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.9.1",
+    "typescript": "^2.9.2",
     "y-array": "^11.0.0-5",
-    "y-indexeddb": "^9.0.0-5",
+    "y-indexeddb": "^9.0.0-6",
     "y-map": "^11.0.0-1",
     "y-memory": "^9.0.0-1",
-    "yjs": "^13.0.0-61"
+    "yjs": "^13.0.0-62"
   },
   "dependencies": {
     "faker": "^4.1.0",

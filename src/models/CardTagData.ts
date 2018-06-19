@@ -1,5 +1,6 @@
 import { CardTagRecord } from './CardTag';
 import { CardRecord } from './Card';
+import * as moment from 'moment';
 
 export default class {
     public key: string;
@@ -27,6 +28,29 @@ export default class {
 
     get time(): number {
         return this.card.time;
+    }
+
+    public get expires(): boolean {
+        return this.tag.validUntil > 0;
+    }
+
+    public get expirationDate(): string {
+        return moment(this.expiration).format();
+    }
+
+    public get expiration(): number {
+        return this.tag.validUntil;
+    }
+
+    public expired(time: number): boolean {
+        return this.tag.validUntil < time;
+    }
+
+    public get tagValue(): string {
+        if (this.tag.unit) {
+            return this.tag.value + '.' + this.tag.unit;
+        }
+        return this.tag.value;
     }
 
     public getInDisplayFor(filter: string): string {

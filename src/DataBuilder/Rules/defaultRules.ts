@@ -37,7 +37,7 @@ const data = {
             r: Result;
             s: State;
             a: Action (a.type == 'COMMIT_CARD') from s.action;
-            c: Card (c.getTag('Status','')=='New Ticket' && c.balance > 0) from s.root;
+            c: Card (c.getTag('Status','')=='New Orders' && c.balance > 0) from s.root;
         }
         then {
           r.add('SET_CARD_TAG',{
