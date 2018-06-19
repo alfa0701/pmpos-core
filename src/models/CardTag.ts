@@ -38,7 +38,6 @@ export class CardTagRecord extends Record<ICardTag>({
     targetCardId: '',
     validUntil: 0
 }) {
-
     get display(): string {
         const key = !this.name || this.name[0] === '_' ? '' : this.name + ': ';
         return `${key}${this.valueDisplay}`;
@@ -95,23 +94,36 @@ export class CardTagRecord extends Record<ICardTag>({
         return this.source || this.target ? `${this.source} > ${this.target}` : '';
     }
 
-    public acceptsFilter(filter: string): boolean {
-        if (this.isUnitFilter(filter)) { return this.unitMatches(filter); }
-        const sv = filter.toLowerCase();
-        return (this.value.toLowerCase().includes(sv) && ['Name', 'Source', 'Target'].indexOf(this.name) === -1)
-            || this.source.toLowerCase().includes(sv)
-            || this.target.toLowerCase().includes(sv);
+    public acceptsFilter(lowCaseFilter: string): boolean {
+        lowCaseFilter = lowCaseFilter.toLowerCase();
+        return this.matchesValue(lowCaseFilter)
+            || this.matchesSource(lowCaseFilter)
+            || this.matchesTarget(lowCaseFilter)
+            || this.unitMatches(lowCaseFilter);
     }
-
+    private matchesTarget(filter: string) {
+        if (!this.target) { return false; }
+        return this.target.toLowerCase().includes(filter);
+    }
+    private matchesSource(filter: string) {
+        if (!this.source) { return false; }
+        return this.source.toLowerCase().includes(filter);
+    }
+    private matchesValue(filter: string) {
+        if (!this.value) { return false; }
+        if (this.name === 'Name') { return false; }
+        if (this.name === 'Source') { return false; }
+        if (this.name === 'Target') { return false; }
+        return this.value.toLowerCase().includes(filter);
+    }
     private isUnitFilter(filter: string) {
         return filter.includes('.') && Boolean(this.unit);
     }
-
     private unitMatches(filter: string): boolean {
-        const parts = filter.split('.').map(x => x.toLowerCase());
+        if (!this.unit || !filter.includes('.')) { return false; }
+        const parts = filter.split('.');
         return this.value.toLowerCase().includes(parts[0]) && this.unit.toLowerCase().includes(parts[1]);
     }
-
     private valueMatches(filter?: string): boolean {
         if (!filter) { return false; }
         if (this.isUnitFilter(filter)) { return this.unitMatches(filter); }

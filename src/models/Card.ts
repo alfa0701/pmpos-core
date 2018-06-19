@@ -184,12 +184,11 @@ export class CardRecord extends Record<ICard>({
         return this.cards.find(card => card.getCard(id) !== undefined);
     }
 
-    public getTags(filters: string[]): { filter: string, result: List<CardTagRecord> } {
-        const tags = this.tags.valueSeq();
-        for (const filter of filters) {
-            const filteredTags = tags.filter(t => t.acceptsFilter(filter));
+    public getTags(lowcaseFilters: string[]): { filter: string, result: List<CardTagRecord> } {
+        for (const filter of lowcaseFilters) {
+            const filteredTags = this.tags.filter(t => t.acceptsFilter(filter));
             if (filteredTags.count() > 0) {
-                return { filter, result: List<CardTagRecord>(filteredTags) };
+                return { filter, result: List<CardTagRecord>(filteredTags.valueSeq()) };
             }
         }
         return { filter: '', result: List<CardTagRecord>() };

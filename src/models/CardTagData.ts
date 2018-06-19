@@ -53,6 +53,15 @@ export default class {
         return this.tag.value;
     }
 
+    public getDisplayFor(filter: string): string {
+        if (this.isSourceAccount(filter)) {
+            return this.tag.source;
+        } else if (this.isTargetAccount(filter)) {
+            return this.tag.target;
+        }
+        return this.tagValue;
+    }
+
     public getInDisplayFor(filter: string): string {
         const inValue = this.tag.getInQuantityFor(filter);
         return inValue !== 0 ? String(inValue) : '';
@@ -95,7 +104,8 @@ export default class {
 
     public getDebitFor(filter: string): number {
         if (this.isAccount(filter)) {
-            return this.isTargetAccount(filter) ? this.card.getTagCredit(this.tag) : 0;
+            // return this.isTargetAccount(filter) ? this.card.getTagCredit(this.tag) : 0;
+            return this.isTargetAccount(filter) ? this.card.credit : 0;
         }
         if (!this.tag.acceptsFilter(filter)) { return 0; }
         if (!this.tag.source && !this.tag.target) {
@@ -109,7 +119,8 @@ export default class {
 
     public getCreditFor(filter: string): number {
         if (this.isAccount(filter)) {
-            return this.isSourceAccount(filter) ? this.card.getTagDebit(this.tag) : 0;
+            // return this.isSourceAccount(filter) ? this.card.getTagDebit(this.tag) : 0;
+            return this.isSourceAccount(filter) ? this.card.debit : 0;
         }
         if (!this.tag.acceptsFilter(filter)) { return 0; }
         if (!this.tag.source && !this.tag.target) {

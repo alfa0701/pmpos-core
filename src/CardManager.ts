@@ -63,19 +63,19 @@ export class CardManager {
         return this.cards;
     }
 
-    public reduceTags(card: CardRecord, list: List<CardTagData>, filters: string[]) {
-        const foundTags = card.getTags(filters);
+    public reduceTags(card: CardRecord, list: List<CardTagData>, lowcaseFilters: string[]) {
+        const foundTags = card.getTags(lowcaseFilters);
         list = list.merge(foundTags.result
             .map(ft => new CardTagData(foundTags.filter, ft, card)));
-        return card.cards.reduce((r, c) => this.reduceTags(c, r, filters), list);
+        return card.cards.reduce((r, c) => this.reduceTags(c, r, lowcaseFilters), list);
     }
 
-    public getTags(filters: string[]): List<CardTagData> {
-        return this.getTagsFrom(filters, this.cards);
+    public getTags(lowcaseFilters: string[]): List<CardTagData> {
+        return this.getTagsFrom(lowcaseFilters, this.cards);
     }
 
-    public getTagsFrom(filters: string[], cards: IMap<string, CardRecord>): List<CardTagData> {
-        return cards.reduce((r, card) => this.reduceTags(card, r, filters), List<CardTagData>());
+    public getTagsFrom(lowcaseFilters: string[], cards: IMap<string, CardRecord>): List<CardTagData> {
+        return cards.reduce((r, card) => this.reduceTags(card, r, lowcaseFilters), List<CardTagData>());
     }
 
     public getCardsByType(typeId: string): List<CardRecord> {
