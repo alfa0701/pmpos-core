@@ -53,10 +53,10 @@ export default class {
         return this.tag.value;
     }
 
-    public getDisplayFor(filter: string): string {
-        if (this.isSourceAccount(filter)) {
+    public getGroupingKeyFor(filter: string): string {
+        if (this.isSourceAccount(filter + '.')) {
             return this.tag.source;
-        } else if (this.isTargetAccount(filter)) {
+        } else if (this.isTargetAccount(filter + '.')) {
             return this.tag.target;
         }
         return this.tagValue;
