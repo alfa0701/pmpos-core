@@ -38,6 +38,7 @@
   "dependencies": {
     "faker": "^4.1.0",
     "nools-ts": "^2.3.5",
+    "vanilla-text-mask": "^5.1.1",
     "y-websockets-streaming-client": "^1.0.24"
   },
   "peerDependencies": {

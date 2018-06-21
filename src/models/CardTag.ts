@@ -40,17 +40,18 @@ export class CardTagRecord extends Record<ICardTag>({
 }) {
     get display(): string {
         const key = !this.name || this.name[0] === '_' ? '' : this.name + ': ';
-        return `${key}${this.valueDisplay}`;
-    }
-
-    get valueDisplay(): string {
-        const u = this.unit ? ' ' + this.unit : '';
-        const q = this.quantity !== 0 ? this.quantity + u + ' ' : '';
-        return this.value ? q + this.value : '';
+        return `${key}${this.getValueDisplay()}`;
     }
     get realQuantity(): number {
         return this.quantity !== 0 ? this.quantity : 1;
     }
+
+    public getValueDisplay(): string {
+        const u = this.unit ? ' ' + this.unit : '';
+        const q = this.quantity !== 0 ? this.quantity + u + ' ' : '';
+        return this.value ? q + this.value : '';
+    }
+
     public getDebit(parentDebit: number, parentCredit: number): number {
         return this.source ? this.realQuantity * this.getRealAmount(parentDebit, parentCredit) : 0;
     }

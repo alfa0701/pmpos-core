@@ -102,7 +102,7 @@ export class CardState {
         const result = data;
         const keys = Object.keys(result);
         for (const key of keys) {
-            if (result[key] === '') {
+            if (result[key] == null) {
                 delete result[key];
             }
         }
